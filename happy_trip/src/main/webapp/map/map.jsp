@@ -30,7 +30,6 @@ prefix="c" uri="jakarta.tags.core"%>
         <!-- header end -->
         <!-- main start -->
         <main>
-            <h1 id="tmp">ㅎㅇㅎㅇ</h1>
             <div class="container">
                 <div class="alert alert-primary mt-3 text-center fw-bold" role="alert">
                     전국 관광지 정보

@@ -91,7 +91,6 @@
 		</div>
 		<script>
 		document.querySelector("#signup").addEventListener("click", function(){
-			console.log(1);
 			const form = document.querySelector("#join-form");
 			form.setAttribute("action", "${root}/user");
 			form.setAttribute("method", "POST");

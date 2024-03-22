@@ -40,8 +40,6 @@
 						<option value="1">글번호</option>
 						<option value="2">제목</option>
 						<option value="3">작성자</option>
-						<option value="4">조회수</option>
-						<option value="5">작성일</option>
 					</select> <input class="col ms-auto col-lg-6 me-2" />
 					<button
 						class="col col-lg-2 col-md-2 ml-auto btn bg-dark text-white">
@@ -95,18 +93,13 @@
 		</div>
 	</div>
 
-	<!-- footer 위치-->
-	<%@ include file="/partials/footer.jsp" %>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
 	<script>
 		document.querySelector("#regist-btn").addEventListener("click", function(){
 			location.href="${root}/board?action=mvwrite"
 		})
 	</script>
 	<script src="js/logout.js"></script>
-</body>
-</html>
+	<!-- footer -->
+	<%@ include file="/partials/footer.jsp"%>
+	<!-- footer -->

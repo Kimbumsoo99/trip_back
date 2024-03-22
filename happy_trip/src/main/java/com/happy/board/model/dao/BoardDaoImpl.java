@@ -10,10 +10,13 @@ import java.util.List;
 import com.happy.board.model.dto.BoardDto;
 import com.happy.util.DBUtil;
 
-public class BoardDaoImpl implements BoardDao{
+public class BoardDaoImpl implements BoardDao {
 	private static BoardDao instance = new BoardDaoImpl();
 	DBUtil dbUtil = DBUtil.getInstance();
-	private BoardDaoImpl() {};
+
+	private BoardDaoImpl() {
+	};
+
 	public static BoardDao getInstance() {
 		return instance;
 	}
@@ -33,7 +36,7 @@ public class BoardDaoImpl implements BoardDao{
 			ps = con.prepareStatement(sql.toString());
 			ps.setInt(1, boardNo);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				boardDto = new BoardDto();
 				boardDto.setBoardNo(rs.getInt("board_no"));
 				boardDto.setUserId(rs.getString("user_id"));
@@ -46,6 +49,68 @@ public class BoardDaoImpl implements BoardDao{
 			dbUtil.close(rs, ps, con);
 		}
 		return boardDto;
+	}
+
+	@Override
+	public List<BoardDto> searchBySubject(String subject) throws SQLException {
+		List<BoardDto> list = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select board_no, user_id, subject, content, hit, register_date \n");
+			sql.append("from board \n");
+			sql.append("where subject like ?;");
+			ps = con.prepareStatement(sql.toString());
+			ps.setString(1, "%" + subject + "%");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				BoardDto boardDto = new BoardDto();
+				boardDto.setBoardNo(rs.getInt("board_no"));
+				boardDto.setUserId(rs.getString("user_id"));
+				boardDto.setSubject(rs.getString("subject"));
+				boardDto.setContent(rs.getString("content"));
+				boardDto.setHit(rs.getInt("hit"));
+				boardDto.setregisterDate(rs.getString("register_date"));
+				list.add(boardDto);
+			}
+		} finally {
+			dbUtil.close(rs, ps, con);
+		}
+		return list;
+	}
+
+	@Override
+	public List<BoardDto> searchByUserId(String userId) throws SQLException {
+		List<BoardDto> list = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select board_no, user_id, subject, content, hit, register_date \n");
+			sql.append("from board \n");
+			sql.append("where user_id=?;");
+			ps = con.prepareStatement(sql.toString());
+			ps.setString(1, userId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				BoardDto boardDto = new BoardDto();
+				boardDto.setBoardNo(rs.getInt("board_no"));
+				boardDto.setUserId(rs.getString("user_id"));
+				boardDto.setSubject(rs.getString("subject"));
+				boardDto.setContent(rs.getString("content"));
+				boardDto.setHit(rs.getInt("hit"));
+				boardDto.setregisterDate(rs.getString("register_date"));
+				list.add(boardDto);
+			}
+		} finally {
+			dbUtil.close(rs, ps, con);
+		}
+		return list;
 	}
 
 	@Override
@@ -62,7 +127,7 @@ public class BoardDaoImpl implements BoardDao{
 			sql.append("order by board_no desc");
 			ps = con.prepareStatement(sql.toString());
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				BoardDto boardDto = new BoardDto();
 				boardDto.setBoardNo(rs.getInt("board_no"));
 				boardDto.setUserId(rs.getString("user_id"));
@@ -87,16 +152,17 @@ public class BoardDaoImpl implements BoardDao{
 			con = dbUtil.getConnection();
 			StringBuilder sb = new StringBuilder();
 			sb.append("update board set subject=?, content=? where board_no=?");
-			
+
 			ps = con.prepareStatement(sb.toString());
 			ps.setString(1, boardDto.getSubject());
 			ps.setString(2, boardDto.getContent());
 			ps.setInt(3, boardDto.getBoardNo());
 			return ps.executeUpdate();
-		}finally {
+		} finally {
 			dbUtil.close(rs, ps, con);
 		}
 	}
+
 	@Override
 	public void updateHit(int boardNo) throws SQLException {
 		Connection con = null;
@@ -106,11 +172,11 @@ public class BoardDaoImpl implements BoardDao{
 			con = dbUtil.getConnection();
 			StringBuilder sb = new StringBuilder();
 			sb.append("update board set hit=hit+1 where board_no=?");
-			
+
 			ps = con.prepareStatement(sb.toString());
 			ps.setInt(1, boardNo);
 			ps.executeUpdate();
-		}finally {
+		} finally {
 			dbUtil.close(rs, ps, con);
 		}
 	}
@@ -126,7 +192,7 @@ public class BoardDaoImpl implements BoardDao{
 			ps = con.prepareStatement(sb.toString());
 			ps.setInt(1, boardNo);
 			return ps.executeUpdate();
-		}finally {
+		} finally {
 			dbUtil.close(ps, con);
 		}
 	}
@@ -150,5 +216,5 @@ public class BoardDaoImpl implements BoardDao{
 			dbUtil.close(ps, con);
 		}
 	}
-	
+
 }

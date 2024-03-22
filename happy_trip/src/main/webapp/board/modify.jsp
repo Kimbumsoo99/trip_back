@@ -52,11 +52,6 @@ import= "com.happy.board.model.dto.BoardDto"%>
         </div>
       </div>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
     <script>
       document.querySelector("#btn-modify").addEventListener("click", function () {
         if (!document.querySelector("#subject").value) {
@@ -75,5 +70,6 @@ import= "com.happy.board.model.dto.BoardDto"%>
         location.href = "${root}/board?action=list&board_no=${board.boardNo}";
       });
     </script>
-  </body>
-</html>
+	<!-- footer -->
+	<%@ include file="/partials/footer.jsp"%>
+	<!-- footer -->
