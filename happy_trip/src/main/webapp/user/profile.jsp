@@ -47,14 +47,15 @@
 				<!-- was-validated -->
 				<form id="update-form" class="needs-validation">
 				<input type="hidden" name="action" value="modify"/>
+				<input type="hidden" name="userId" "<% if (user2 != null) { %> value="<%=user2.getUserId()%>"  <% } %>"/>
 					<div class="mb-3">
 						<div id="name-div" class="p-1">
-							<label for="user-name" class="form-label" >이름 :</label> <input
-								type="text" class="form-control" id="user-name" name="userName" <% if (user2 != null) { %> value="<%= user2.getUserName() %>"  <% } %> />
+							<label for="user-name" class="form-label" >이름 :</label>
+							 <input type="text" class="form-control" id="user-name" name="userName" <% if (user2 != null) { %> value="<%= user2.getUserName() %>"  <% } %> />
 						</div>
 						<div class="p-1">
 							<label for="user-join-id" class="form-label">아이디 :</label> 
-							<input type="text" name="join_userId" class="form-control" id="user-join-id"
+							<input type="text" name="" class="form-control" id="user-join-id"
 							<% if (user2 != null) { %> value="<%= user2.getUserId() %>"  <% } %>  disabled
 							required  />
 						</div>
