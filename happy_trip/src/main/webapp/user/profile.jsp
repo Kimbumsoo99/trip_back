@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.happy.member.model.dto.MemberDto"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
+
+<%
+	MemberDto user2 = (MemberDto) session.getAttribute("member"); 
+	System.out.println("개인정보 띄움:" + user2);
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,33 +45,36 @@
 			<div class="modal-body">
 				<!-- novalidate -->
 				<!-- was-validated -->
-				<form id="join-form" class="needs-validation" action="">
+				<form id="update-form" class="needs-validation">
+				<input type="hidden" name="action" value="modify"/>
 					<div class="mb-3">
 						<div id="name-div" class="p-1">
-							<label for="user-name" class="form-label">이름 :</label> <input
-								type="text" class="form-control" id="user-name" name="user-name" />
+							<label for="user-name" class="form-label" >이름 :</label> <input
+								type="text" class="form-control" id="user-name" name="userName" <% if (user2 != null) { %> value="<%= user2.getUserName() %>"  <% } %> />
 						</div>
 						<div class="p-1">
-							<label for="user-join-id" class="form-label">아이디 :</label> <input
-								type="text" class="form-control" id="user-join-id" disabled
-								required name="user-join-id" />
+							<label for="user-join-id" class="form-label">아이디 :</label> 
+							<input type="text" name="join_userId" class="form-control" id="user-join-id"
+							<% if (user2 != null) { %> value="<%= user2.getUserId() %>"  <% } %>  disabled
+							required  />
 						</div>
 						<div class="p-1">
 							<label for="user-join-password" class="form-label">비밀번호
 								:</label> <input type="password" class="form-control"
 								id="user-join-password" placeholder="비밀번호를 입력하세요" required
-								name="user-join-password" />
+								name="userPw" />
 							<div class="invalid-feedback">비밀번호를 입력하세요.</div>
 						</div>
 						<div class="p-1">
 							<label for="user-email" class="form-label">이메일 :</label>
 							<div class="input-group has-validation">
-								<input type="text" class="form-control" id="user-email"
-									placeholder="이메일아이디" required />
-								<span id="at-span" class="input-group-text">@</span> <select
+								<input type="text" class="form-control" id="user-email" <% if (user2 != null) { %> value="<%= user2.getEmailId() %>"  <% } %>
+									name="emailId" placeholder="이메일아이디" required />
+								<span id="at-span" class="input-group-text">@</span> 
+								<select name="emailDomain"
 									class="form-select" id="mail" required>
-									<option value="">선택</option>
-									<option>ssafy.com</option>
+									<option >선택</option>
+									<option >ssafy.com</option>
 									<option>gmail.com</option>
 									<option>naver.com</option>
 								</select>
@@ -89,18 +98,39 @@
 					</div>
 				</form>
 			</div>
-
+			<form id="delete-form" class="needs-validation">
+				<input type="hidden" name="action" value="deleteAccount"/>
+				<input type="hidden" name="userId" "<% if (user2 != null) { %> value="<%=user2.getUserId()%>"  <% } %>"/>
+			</form>
 			<!-- Modal footer -->
 			<div class="modal-footer d-flex justify-content-center">
-				<button type="button" onclick="updateBtnClickEventListner();"
-					class="btn btn-outline-primary m-3">
-					수정하기</button>
-				<button type="button" class="btn btn-outline-danger m-3"
-					onclick="deleteProfile();">탈퇴하기</button>
+				<button type="button" id="modify"class="btn btn-outline-primary m-3">수정하기</button>
+				<button type="button" id="delete" class="btn btn-outline-danger m-3">탈퇴하기</button>
 			</div>
 		</div>
 	</main>
 	<!-- main end -->
+	<script>
+		document.querySelector("#modify").addEventListener("click", function(){
+			console.log(1);
+			const form = document.querySelector("#update-form");
+			form.setAttribute("action", "/happy_trip/user");
+			form.setAttribute("method", "POST");
+			form.submit();
+		});
+		
+		document.querySelector("#delete").addEventListener("click", function(){
+			console.log(1);
+			const form = document.querySelector("#delete-form");
+			form.setAttribute("action", "/happy_trip/user");
+			form.setAttribute("method", "POST");
+			form.submit();
+		});
+	</script>
+	
+	
+	
+	
 
 	<script src="js/updateUser.js"></script>
 	<script src="js/logout.js"></script>

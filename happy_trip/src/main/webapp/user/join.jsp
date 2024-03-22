@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
 <!-- 회원가입 모달 start -->
 	<div class="modal" id="join-modal">
 		<div class="modal-dialog modal-dialog-centered">

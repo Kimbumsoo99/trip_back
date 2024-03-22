@@ -129,5 +129,32 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return null;
 	}
+	
+	@Override
+	public boolean modifyMember(MemberDto dto) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		System.out.println("수정 dto : " + dto);
+		try {
+			conn = DBUtil.getInstance().getConnection();
+			pstmt = conn.prepareStatement("UPDATE member set userName = ?, emailId = ?, emailDomain = ? WHERE userId = ?;");
+			pstmt.setString(1, dto.getUserName());
+			pstmt.setString(2, dto.getEmailId());
+			pstmt.setString(3, dto.getEmailDomain());
+			pstmt.setString(4, dto.getUserId());
+			
+			if(pstmt.executeUpdate() == 1) return true;
+			
+			pstmt.executeUpdate();		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return false;
+	}
+	
+	
 
 }

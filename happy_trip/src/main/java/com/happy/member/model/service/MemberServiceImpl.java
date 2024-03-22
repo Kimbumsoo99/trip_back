@@ -70,6 +70,20 @@ public class MemberServiceImpl implements MemberService {
 
 		return null;
 	}
+
+	@Override
+	public boolean modifyMember(MemberDto dto) {
+		
+		try {
+			MemberDaoImpl.getInstance().modifyMember(dto);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
 	
 	

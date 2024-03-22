@@ -9,5 +9,6 @@ public interface MemberDao {
 	public MemberDto signIn(String id, String pw) throws SQLException;
 	public void deleteAccount(MemberDto dto) throws SQLException;
 	public MemberDto getMember(String id) throws SQLException;
+	public boolean modifyMember(MemberDto dto) throws SQLException;
 
 }
