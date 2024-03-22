@@ -14,25 +14,25 @@
 				<div class="modal-body">
 					<!-- novalidate -->
 					<!-- was-validated -->
-					<form id="join-form" class="needs-validation" action="">
+					<form id="join-form" class="needs-validation" action="signUp">
 						<div class="mb-3">
 							<div class="p-1">
 								<label for="user-name" class="form-label">이름 :</label> <input
 									type="text" class="form-control" placeholder="이름을 입력하세요."
-									id="user-name" name="user-name" />
+									id="user-name" name="userName" />
 								<div class="invalid-feedback">이름을 입력하세요.</div>
 							</div>
 							<div class="p-1">
 								<label for="user-join-id" class="form-label">아이디 :</label> <input
 									type="text" class="form-control" placeholder="아이디를 입력하세요."
-									id="user-join-id" required name="user-join-id" />
+									id="user-join-id" required name="userId" />
 								<div class="invalid-feedback">아이디를 입력하세요.</div>
 							</div>
 							<div class="p-1">
 								<label for="user-join-password" class="form-label">비밀번호
 									:</label> <input type="password" class="form-control"
 									placeholder="비밀번호를 입력하세요." id="user-join-password" required
-									name="user-join-password" />
+									name="userPw" />
 								<div class="invalid-feedback">비밀번호를 입력하세요.</div>
 							</div>
 							<div class="p-1">
@@ -45,9 +45,9 @@
 							<div class="p-1">
 								<label for="user-email" class="form-label">이메일 :</label>
 								<div class="input-group has-validation">
-									<input type="text" class="form-control" id="user-email"
+									<input type="text" class="form-control" id="user-email" name="emailId"
 										placeholder="이메일아이디" required />
-									<span id="at-span" class="input-group-text">@</span> <select
+									<span id="at-span" class="input-group-text">@</span> <select name = "emailDomain"
 										class="form-select" id="mail" required>
 										<option value="">선택</option>
 										<option>ssafy.com</option>
@@ -62,9 +62,9 @@
 								<label for="user-area" class="form-label">지역 :</label>
 								<div class="input-group has-validation">
 									<div class="container-fluid d-flex p-0">
-										<select class="form-select" id="sido" required>
+										<select class="form-select" id="sido" name="sido" required>
 											<option value="">시도선택</option>
-										</select> <select class="form-select" id="gugun" required>
+										</select> <select class="form-select" id="gugun" name="gugun" required>
 											<option value="">구군선택</option>
 										</select>
 									</div>
@@ -78,7 +78,7 @@
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-primary"
+					<button type="button" class="btn btn-outline-primary" id="signup"
 						onclick="joinClickEventHandler();">
 						회원가입</button>
 					<button type="button" class="btn btn-outline-secondary"
@@ -86,5 +86,14 @@
 				</div>
 			</div>
 		</div>
+				<script>
+		document.querySelector("#signup").addEventListener("click", function(){
+			console.log(1);
+			const form = document.querySelector("#join-form");
+			//form.setAttribute("action", "/happy_trip/user");
+			form.setAttribute("method", "POST");
+			form.submit();
+		});
+	</script>
 	</div>
 	<!-- 회원가입 모달 end -->
