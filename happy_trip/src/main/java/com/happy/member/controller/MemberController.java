@@ -48,6 +48,7 @@ public class MemberController extends HttpServlet {
 				// 실패
 				System.out.println("회원가입 실패" + dto);
 			}
+			response.sendRedirect("/happy_trip");
 			
 		} else if (action.equals("signIn")) {
 			System.out.println("로그인!");

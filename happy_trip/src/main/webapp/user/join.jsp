@@ -14,7 +14,8 @@
 				<div class="modal-body">
 					<!-- novalidate -->
 					<!-- was-validated -->
-					<form id="join-form" class="needs-validation" action="signUp">
+					<form id="join-form" class="needs-validation" >
+					<input type="hidden" name="action" value="signUp">
 						<div class="mb-3">
 							<div class="p-1">
 								<label for="user-name" class="form-label">이름 :</label> <input
@@ -79,18 +80,18 @@
 				<!-- Modal footer -->
 				<div class="modal-footer">
 					<button type="button" class="btn btn-outline-primary" id="signup"
-						onclick="joinClickEventHandler();">
+						onclick="">
 						회원가입</button>
 					<button type="button" class="btn btn-outline-secondary"
 						data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>
 		</div>
-				<script>
+		<script>
 		document.querySelector("#signup").addEventListener("click", function(){
 			console.log(1);
 			const form = document.querySelector("#join-form");
-			//form.setAttribute("action", "/happy_trip/user");
+			form.setAttribute("action", "/happy_trip/user");
 			form.setAttribute("method", "POST");
 			form.submit();
 		});
