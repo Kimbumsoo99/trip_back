@@ -17,10 +17,10 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/user")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MemberServiceImpl memberServiceImpl;
+	private MemberServiceImpl memberService;
     public MemberController() {
         super();
-        memberServiceImpl = MemberServiceImpl.getInstance();
+        memberService = MemberServiceImpl.getInstance();
         //System.out.println("유저 생성");
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +41,7 @@ public class MemberController extends HttpServlet {
 			dto.setSido(request.getParameter("sido"));
 			dto.setGugun(request.getParameter("gugun"));
 			
-			if (memberServiceImpl.getInstance().signUp(dto)) {
+			if (memberService.signUp(dto)) {
 				// 성공
 				System.out.println("회원가입 성공" + dto);
 			} else {
@@ -56,11 +56,11 @@ public class MemberController extends HttpServlet {
 			String userId = request.getParameter("userId");
 			String userPw = request.getParameter("userPw");
 			
-			MemberDto dto = memberServiceImpl.getInstance().getMember(userId);
+			MemberDto dto = memberService.getMember(userId);
 			
 			//System.out.println(flag + " " + userId + " " + userPw + " " + dto.toString());
 			// 로그인
-			if (memberServiceImpl.getInstance().signIn(userId, userPw)) {
+			if (memberService.signIn(userId, userPw)) {
 				// 성공
 				//System.out.println("로그인 성공" + request.getParameter("userId"));
 				
@@ -103,7 +103,7 @@ public class MemberController extends HttpServlet {
 			
 		} else if (action.equals("deleteAccount")) {
 			// 회원 탈퇴 -> ID
-			if (memberServiceImpl.getInstance().deleteAccount(request.getParameter("userId"))) {
+			if (memberService.deleteAccount(request.getParameter("userId"))) {
 				// 성공
 				System.out.println("탈퇴 성공" + request.getParameter("userId"));
 			} else {

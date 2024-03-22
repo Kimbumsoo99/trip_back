@@ -2,27 +2,6 @@ let userState = false;
 const userList = [];
 let userIdx = 0;
 
-window.onload = function () {
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    userIdx = Number(localStorage.getItem("userIdx"));
-    if (userIdx == null || userIdx == undefined) {
-        userIdx == 0;
-    }
-    console.log(user);
-    const userNoUl = document.querySelector("#user-no");
-    const userYesUl = document.querySelector("#user-yes");
-    if (user == null) {
-        userState = true;
-        userNoUl.classList.remove("d-none");
-        userYesUl.classList.add("d-none");
-    } else {
-        userState = false;
-        userNoUl.classList.add("d-none");
-        userYesUl.classList.remove("d-none");
-    }
-};
-
-document.previousSibling;
 const loginClickEventHandler = async () => {
     const form = document.querySelector("#login-form");
     const userId = document.querySelector("#user-id").value;
@@ -152,7 +131,7 @@ const logout = () => {
 let date = new Date();
 
 // 브라우저가 열리면 시도정보 얻기.
-sendRequest("sido", "*00000000");
+sendRequest("sido", "action=sido");
 
 // https://juso.dev/docs/reg-code-api/
 // let url = "https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes";
@@ -160,9 +139,8 @@ sendRequest("sido", "*00000000");
 // 전국 특별/광역시, 도
 // https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000
 
-function sendRequest(selid, regcode) {
-    const url = "https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes";
-    let params = "regcode_pattern=" + regcode + "&is_ignore_zero=true";
+function sendRequest(selid, params) {
+    const url = "http://localhost:8080/happy_trip/trip";
     fetch(`${url}?${params}`)
         .then((response) => response.json())
         .then((data) => addOption(selid, data));
@@ -170,46 +148,32 @@ function sendRequest(selid, regcode) {
 // 시도가 바뀌면 구군정보 얻기.
 document.querySelector("#sido").addEventListener("change", function () {
     if (this[this.selectedIndex].value) {
-        let regcode = this[this.selectedIndex].value.substr(0, 2) + "*00000";
-        sendRequest("gugun", regcode);
+        let sidoCode = this[this.selectedIndex].value;
+        sendRequest("gugun", `action=gugun&sidoCode=${sidoCode}`);
     } else {
         initOption("gugun");
     }
 });
 
-function addOption(selid, data) {
+async function addOption(selid, data) {
     let opt = ``;
     initOption(selid);
     switch (selid) {
         case "sido":
-            opt += `<option value="">시도선택</option>`;
-            data.regcodes.forEach(function (regcode) {
+            opt += `<option value="">검색 할 지역 선택</option>`;
+            console.log(data);
+            data.forEach(function (regcode) {
                 opt += `
-    <option value="${regcode.code}">${regcode.name}</option>
+    <option value="${regcode.sidoCode}">${regcode.sidoName}</option>
     `;
             });
             break;
         case "gugun":
-            opt += `<option value="">구군선택</option>`;
-            for (let i = 0; i < data.regcodes.length; i++) {
-                if (i != data.regcodes.length - 1) {
-                    if (
-                        data.regcodes[i].name.split(" ")[1] ==
-                            data.regcodes[i + 1].name.split(" ")[1] &&
-                        data.regcodes[i].name.split(" ").length !=
-                            data.regcodes[i + 1].name.split(" ").length
-                    ) {
-                        data.regcodes.splice(i, 1);
-                        i--;
-                    }
-                }
-            }
-            let name = "";
-            data.regcodes.forEach(function (regcode) {
-                if (regcode.name.split(" ").length == 2) name = regcode.name.split(" ")[1];
-                else name = regcode.name.split(" ")[1] + " " + regcode.name.split(" ")[2];
+            opt += `<option value="">구군 선택</option>`;
+            console.log(data);
+            data.forEach(function (regcode) {
                 opt += `
-    <option value="${regcode.code}">${name}</option>
+    <option value="${regcode.gugunCode}">${regcode.gugunName}</option>
     `;
             });
             break;
@@ -221,3 +185,4 @@ function initOption(selid) {
     let options = document.querySelector(`#${selid}`);
     options.length = 0;
 }
+
