@@ -3,8 +3,6 @@
 <!-- 로그인 모달 start -->
 
 <%
-System.out.println("비기 제 1장 이야야ㅑㅇ");
-
 Cookie[] cookies = request.getCookies(); //client에서 쿠키를 받아옴
 
 
@@ -17,9 +15,6 @@ if(cookies!=null){
         }
     }
 }
-
-System.out.println(cookieValue);
-
 %>
 
 

@@ -121,10 +121,10 @@ public class MemberController extends HttpServlet {
 			dto.setEmailDomain(request.getParameter("emailDomain"));
 			dto.setUserId(request.getParameter("join_userId"));
 			
-			if (memberServiceImpl.modifyMember(dto)) {
+			if (memberService.modifyMember(dto)) {
 				System.out.println("수정 성공!");
 				
-				dto = memberServiceImpl.getInstance().getMember(request.getParameter("userId"));
+				dto = memberService.getMember(request.getParameter("userId"));
 				HttpSession session = request.getSession();
 				session.setAttribute("member", dto);
 			}

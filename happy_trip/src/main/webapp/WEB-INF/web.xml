@@ -31,16 +31,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>MemberController</display-name>
-    <servlet-name>MemberController</servlet-name>
-    <servlet-class>com.happy.member.controller.MemberController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MemberController</servlet-name>
-    <url-pattern>/MemberController</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>TripController</display-name>
     <servlet-name>TripController</servlet-name>
     <servlet-class>com.happy.trip.controller.TripController</servlet-class>
@@ -48,5 +38,15 @@
   <servlet-mapping>
     <servlet-name>TripController</servlet-name>
     <url-pattern>/TripController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberController</display-name>
+    <servlet-name>MemberController</servlet-name>
+    <servlet-class>com.happy.member.controller.MemberController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberController</servlet-name>
+    <url-pattern>/MemberController</url-pattern>
   </servlet-mapping>
 </web-app>

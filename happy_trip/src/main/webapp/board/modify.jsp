@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-import= "com.ssafy.board.model.BoardDto"%>
+import= "com.happy.board.model.dto.BoardDto"%>
 <%
 String root = request.getContextPath();
 BoardDto boardDto = (BoardDto) request.getAttribute("article");
