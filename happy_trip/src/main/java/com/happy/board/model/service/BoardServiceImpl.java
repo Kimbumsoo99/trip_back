@@ -22,6 +22,7 @@ public class BoardServiceImpl implements BoardService{
 	public void writeBoard(BoardDto boardDto) throws Exception {
 		boardDao.insert(boardDto);
 	}
+	
 
 	@Override
 	public List<BoardDto> listBoard() throws Exception {
@@ -35,6 +36,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void updateHit(int boardNo) throws Exception {
+		boardDao.updateHit(boardNo);
 	}
 
 	@Override

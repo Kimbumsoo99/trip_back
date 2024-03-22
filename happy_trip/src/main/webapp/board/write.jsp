@@ -26,7 +26,7 @@ String root = request.getContextPath();
           </h2>
         </div>
         <div class="col-lg-8 col-md-10 col-sm-12">
-          <form id="form-register" method="POST" action="">
+          <form id="form-register" method="POST">
           	<input type="hidden" name="action" value="write">
             <div class="mb-3">
               <label for="userid" class="form-label">작성자 ID : </label>
@@ -35,7 +35,8 @@ String root = request.getContextPath();
                 class="form-control"
                 id="userid"
                 name="userid"
-                value="ssafy"
+                value="${sessionScope.member.userId}"
+                readonly
                 placeholder="작성자ID..."
               />
             </div>
@@ -78,7 +79,7 @@ String root = request.getContextPath();
           return;
         } else {
           let form = document.querySelector("#form-register");
-          form.setAttribute("action", "<%= root %>/article");
+          form.setAttribute("action", "<%= root %>/board");
           form.submit();
         }
       });

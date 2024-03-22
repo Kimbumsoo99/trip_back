@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 	pageEncoding="UTF-8" import="com.happy.board.model.dto.BoardDto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <%
-BoardDto boardDto = (BoardDto) request.getAttribute("article");
+BoardDto boardDto = (BoardDto) request.getAttribute("board");
 
 if(boardDto != null) {
 %>
@@ -85,15 +83,14 @@ if(boardDto != null) {
     ></script>
     <script>
       document.querySelector("#btn-list").addEventListener("click", function () {
-        location.href = "${root}/article?action=list";
+        location.href = "${root}/board?action=list";
       });
       document.querySelector("#btn-mv-modify").addEventListener("click", function () {
-        alert("글수정하자!!!");
-        location.href = "${root}/article?action=mvmodify&article_no=<%= boardDto.getBoardNo() %>";
+        location.href = "${root}/board?action=mvmodify&board_no=${board.boardNo}";
       });
       document.querySelector("#btn-delete").addEventListener("click", function () {
         alert("글삭제하자!?!");
-        location.href = "${root}/article?action=delete&article_no=<%= boardDto.getBoardNo() %>";
+        location.href = "${root}/board?action=delete&board_no=${board.boardNo}";
       });
     </script>
   </body>

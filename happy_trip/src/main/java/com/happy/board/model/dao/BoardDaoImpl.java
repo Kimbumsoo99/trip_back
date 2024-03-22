@@ -97,6 +97,23 @@ public class BoardDaoImpl implements BoardDao{
 			dbUtil.close(rs, ps, con);
 		}
 	}
+	@Override
+	public void updateHit(int boardNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = dbUtil.getConnection();
+			StringBuilder sb = new StringBuilder();
+			sb.append("update board set hit=hit+1 where board_no=?");
+			
+			ps = con.prepareStatement(sb.toString());
+			ps.setInt(1, boardNo);
+			ps.executeUpdate();
+		}finally {
+			dbUtil.close(rs, ps, con);
+		}
+	}
 
 	@Override
 	public int delete(int boardNo) throws SQLException {
@@ -127,6 +144,7 @@ public class BoardDaoImpl implements BoardDao{
 			ps.setString(1, boardDto.getUserId());
 			ps.setString(2, boardDto.getSubject());
 			ps.setString(3, boardDto.getContent());
+			System.out.println(boardDto);
 			return ps.executeUpdate();
 		} finally {
 			dbUtil.close(ps, con);

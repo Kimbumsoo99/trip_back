@@ -39,6 +39,7 @@ public class BoardController extends HttpServlet {
 			forward(request, response, path);
 		} else if ("view".equals(action)) {
 			path = view(request, response);
+			System.out.println("VIEW");
 			forward(request, response, path);
 		} else if ("mvwrite".equals(action)) {
 			path = "/board/write.jsp";
@@ -78,12 +79,11 @@ public class BoardController extends HttpServlet {
 
 	private String list(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
+		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		if (memberDto != null) {
 			try {
 				List<BoardDto> list = boardService.listBoard();
 				request.setAttribute("boards", list);
-
 				return "/board/list.jsp";
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -99,21 +99,24 @@ public class BoardController extends HttpServlet {
 		if (memberDto != null) {
 			int boardNo = Integer.parseInt(request.getParameter("board_no"));
 			try {
-				BoardDto boardDto = boardService.getBoard(boardNo);
 				boardService.updateHit(boardNo);
-				request.setAttribute("article", boardDto);
+				BoardDto boardDto = boardService.getBoard(boardNo);
+				System.out.println(boardNo);
+				System.out.println(boardDto);
+				request.setAttribute("board", boardDto);
 				return "/board/view.jsp";
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "/index.jsp";
 			}
 		} else
-			return "/user/login.jsp";
+			return "/index.jsp";
 	}
 
 	private String write(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
+		MemberDto memberDto = (MemberDto) session.getAttribute("member");
+		System.out.println(memberDto);
 		if (memberDto != null) {
 			BoardDto boardDto = new BoardDto();
 			boardDto.setUserId(memberDto.getUserId());

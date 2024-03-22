@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 import= "com.happy.board.model.dto.BoardDto"%>
-<%
-String root = request.getContextPath();
-BoardDto boardDto = (BoardDto) request.getAttribute("article");
-%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -16,7 +14,7 @@ BoardDto boardDto = (BoardDto) request.getAttribute("article");
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link href="<%= root %>/assets/css/app.css" rel="stylesheet" />
+    <link href="${root}/assets/css/app.css" rel="stylesheet" />
     <title>SSAFY</title>
   </head>
   <body>
@@ -28,20 +26,19 @@ BoardDto boardDto = (BoardDto) request.getAttribute("article");
           </h2>
         </div>
         <div class="col-lg-8 col-md-10 col-sm-12">
-          <form id="form-modify" method="POST" action="">
-          	<input type="hidden" name="article_no" class="form-control" id="article_no" value="<%= boardDto.getArticleNo() %>"/>
-          	<input type="text" name="article_no" class="form-control" id="article_no" value="<%= boardDto.getArticleNo() %>" readonly />
+          <form id="form-modify" method="POST">
+          	<input type="hidden" name="board_no" class="form-control" id="board_no" value="${board.boardNo}"/>
             <div class="mb-3">
               <label for="userid" class="form-label">작성자 ID : </label>
-              <input type="text" class="form-control" id="userid" value="<%= boardDto.getUserId() %>" readonly />
+              <input type="text" class="form-control" id="userid" value="${board.userId}" readonly />
             </div>
             <div class="mb-3">
               <label for="subject" class="form-label">제목 : </label>
-              <input type="text" class="form-control" name="subject" id="subject" value="<%= boardDto.getSubject() %>" />
+              <input type="text" class="form-control" name="subject" id="subject" value="${board.subject}" />
             </div>
             <div class="mb-3">
               <label for="content" class="form-label">내용 : </label>
-              <textarea class="form-control" id="content" name="content" rows="7"><%= boardDto.getContent() %></textarea>
+              <textarea class="form-control" id="content" name="content" rows="7">${board.content}</textarea>
             </div>
             <div class="col-auto text-center">
               <button type="button" id="btn-modify" class="btn btn-outline-primary mb-3">
@@ -70,12 +67,12 @@ BoardDto boardDto = (BoardDto) request.getAttribute("article");
           return;
         } else {
           let form = document.querySelector("#form-modify");
-          form.setAttribute("action", "<%= root %>/article?action=modify");
+          form.setAttribute("action", "${root}/board?action=modify");
           form.submit();
         }
       });
       document.querySelector("#btn-list").addEventListener("click", function () {
-        location.href = "<%= root %>/article?action=list";
+        location.href = "${root}/board?action=list&board_no=${board.boardNo}";
       });
     </script>
   </body>

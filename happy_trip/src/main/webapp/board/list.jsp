@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.happy.board.model.dto.BoardDto"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="root" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,6 +31,7 @@
 			<!-- 게시판 헤더? -->
 			<div class="mt-5 row">
 				<button
+				id="regist-btn"
 					class="col col-lg-1 col-md-2 ml-auto btn btn-outline-primary">
 					글쓰기</button>
 
@@ -62,62 +64,15 @@
 				</thead>
 				<tbody class="table-sm">
 					<!-- 동적 추가될 위치!! -->
-					<tr>
-						<td class="fw-bold">100</td>
-						<td class="text-start"><a href=".">안녕하세요1</a></td>
-						<td>인효인</td>
-						<td>92</td>
-						<td>22.09.07</td>
-					</tr>
-					<tr>
-						<td class="fw-bold">99</td>
-						<td class="text-start"><a href=".">안녕하세요2</a></td>
-						<td>갓범수</td>
-						<td>99999</td>
-						<td>30.03.15</td>
-					</tr>
-					<tr>
-						<td class="fw-bold">100</td>
-						<td class="text-start"><a href=".">안녕하세요1</a></td>
-						<td>인효인</td>
-						<td>92</td>
-						<td>22.09.07</td>
-					</tr>
-					<tr>
-						<td class="fw-bold">99</td>
-						<td class="text-start"><a href=".">안녕하세요2</a></td>
-						<td>갓범수</td>
-						<td>99999</td>
-						<td>30.03.15</td>
-					</tr>
-					<tr>
-						<td class="fw-bold">100</td>
-						<td class="text-start"><a href=".">안녕하세요1</a></td>
-						<td>인효인</td>
-						<td>92</td>
-						<td>22.09.07</td>
-					</tr>
-					<tr>
-						<td class="fw-bold">99</td>
-						<td class="text-start"><a href=".">안녕하세요2</a></td>
-						<td>갓범수</td>
-						<td>99999</td>
-						<td>30.03.15</td>
-					</tr>
-					<tr>
-						<td class="fw-bold">100</td>
-						<td class="text-start"><a href=".">안녕하세요1</a></td>
-						<td>인효인</td>
-						<td>92</td>
-						<td>22.09.07</td>
-					</tr>
-					<tr>
-						<td class="fw-bold">99</td>
-						<td class="text-start"><a href=".">안녕하세요2</a></td>
-						<td>갓범수</td>
-						<td>99999</td>
-						<td>30.03.15</td>
-					</tr>
+					<c:forEach var="board" items="${boards}">
+						<tr>
+							<td class="fw-bold">${board.boardNo}</td>
+							<td class="text-start"><a href="${root}/board?action=view&board_no=${board.boardNo}">${board.subject}</a></td>
+							<td>${board.userId}</td>
+							<td>${board.hit}</td>
+							<td>${board.registerDate}</td>
+						</tr>
+					</c:forEach>
 					<!-- 동적 추가될 위치!! -->
 				</tbody>
 			</table>
@@ -147,6 +102,11 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
+	<script>
+		document.querySelector("#regist-btn").addEventListener("click", function(){
+			location.href="${root}/board?action=mvwrite"
+		})
+	</script>
 	<script src="js/logout.js"></script>
 </body>
 </html>

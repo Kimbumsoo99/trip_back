@@ -78,7 +78,7 @@
 				<li class="header-nav nav-item"><a href="${root}/map/map.jsp"
 					class="nav-link">지역별 관광지</a></li>
 				<li class="header-nav nav-item"><a
-					href="${root}/board/board.jsp" class="nav-link">여행정보공유</a></li>
+					href="${root}/board?action=list" class="nav-link">여행정보공유</a></li>
 				<li class="header-nav nav-item"><a
 					href="${root}/user/profile.jsp" class="nav-link">마이페이지</a></li>
 				<li class="header-nav nav-item"><a href="/happy_trip/user?action=signOut" onclick="logout();"
