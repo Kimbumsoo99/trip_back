@@ -29,6 +29,7 @@ public class MemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//System.out.println("user 방문");
 		String action = request.getParameter("action");
+		System.out.println(action);
 		if (action.equals("signUp")) {
 			System.out.println("회원가입!");
 			// 회원가입
@@ -103,6 +104,7 @@ public class MemberController extends HttpServlet {
 			
 		} else if (action.equals("deleteAccount")) {
 			// 회원 탈퇴 -> ID
+			System.out.println("유저 삭제!!");
 			if (memberServiceImpl.getInstance().deleteAccount(request.getParameter("userId"))) {
 				// 성공
 				System.out.println("탈퇴 성공" + request.getParameter("userId"));
@@ -110,8 +112,28 @@ public class MemberController extends HttpServlet {
 				// 실패
 				System.out.println("탈퇴 실패" + request.getParameter("userId"));
 			}
+			response.sendRedirect("/happy_trip");
+		} else if (action.equals("modify")) {
+			MemberDto dto = new MemberDto();
 			
-		} else {
+			dto.setUserName(request.getParameter("userName"));
+			dto.setEmailId(request.getParameter("emailId"));
+			dto.setEmailDomain(request.getParameter("emailDomain"));
+			dto.setUserId(request.getParameter("join_userId"));
+			
+			if (memberServiceImpl.modifyMember(dto)) {
+				System.out.println("수정 성공!");
+				
+				dto = memberServiceImpl.getInstance().getMember(request.getParameter("userId"));
+				HttpSession session = request.getSession();
+				session.setAttribute("member", dto);
+			}
+			response.sendRedirect("/happy_trip/user/profile.jsp");
+			
+		}
+		
+		
+		else {
 			// 이상한 action
 			System.out.println("/user 에서의 action이 이상함 : " + action);
 		}
