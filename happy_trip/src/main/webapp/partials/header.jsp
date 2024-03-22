@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8" import="com.happy.member.model.dto.MemberDto"%>
+	
+<%
+	MemberDto user = (MemberDto) session.getAttribute("member"); 
+	System.out.println(user);
+%>
 	<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
             <symbol id="at" viewBox="0 0 16 16">
                 <path
@@ -49,6 +53,12 @@
 		            </svg> <span class="fs-2">Happy Trip</span>
 			</a>
 
+
+			<%
+			if (user == null) {
+			
+			%>
+
 			<ul id="user-no" class="header-ul nav nav-pills align-items-center">
 				<li class="header-nav nav-item"><a href="#"
 					class="btn btn-primary" role="button" aria-current="page"
@@ -56,6 +66,14 @@
 				<li class="header-nav nav-item"><a href="#" class="nav-link"
 					data-bs-toggle="modal" data-bs-target="#join-modal">회원가입</a></li>
 			</ul>
+			
+			<%
+			}
+			else {
+			%>
+			
+			
+			
 			<ul id="user-yes" class="header-ul nav nav-pills align-items-center">
 				<li class="header-nav nav-item"><a href="${root}/map/map.jsp"
 					class="nav-link">지역별 관광지</a></li>
@@ -63,8 +81,14 @@
 					href="${root}/board/board.jsp" class="nav-link">여행정보공유</a></li>
 				<li class="header-nav nav-item"><a
 					href="${root}/user/profile.jsp" class="nav-link">마이페이지</a></li>
-				<li class="header-nav nav-item"><a href="#" onclick="logout();"
+				<li class="header-nav nav-item"><a href="/happy_trip/user?action=signOut" onclick="logout();"
 					class="nav-link">로그아웃</a></li>
 			</ul>
+			
+			<%
+			}
+			%>
+			
+			
 		</header>
 	</div>
