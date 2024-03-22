@@ -48,6 +48,8 @@ public class TripDaoImpl implements TripDao {
 			ps.setString(2, param.getGugun());
 			if(typeFlag) ps.setString(3, param.getType());
 			
+			rs = ps.executeQuery();
+			
 			while(rs.next()) {
 				TripDto tripDto = new TripDto();
 				tripDto.setContentId(rs.getString(1));

@@ -77,6 +77,7 @@ public class TripController extends HttpServlet {
 				String type = request.getParameter("type");
 				
 				TripSearchDto param = new TripSearchDto(sidoCode, gugunCode, type);
+				System.out.println(param);
 				List<TripDto> tripList = tripService.getTripList(param);
 				
 				// JSON으로 변환
