@@ -1,0 +1,35 @@
+#header {
+    height: 130px;
+}
+header {
+    height: 90%;
+}
+.modal-title {
+    border-bottom: 6px solid yellowgreen;
+}
+.header-nav:hover {
+    background-color: whitesmoke;
+    border-radius: 10px;
+}
+#link-to-board {
+    padding: 10px 15px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+#main-1 {
+    position: relative; /* 배경을 감싸는 div에 position 속성 추가 */
+}
+
+#main-2 {
+    height: 800px;
+    margin-top: 140px;
+    margin-bottom: 140px;
+}
+
+.carousel-div {
+    height: 800px;
+    margin-top: 140px;
+    margin-bottom: 140px;
+    background-color: #ededed;
+}
